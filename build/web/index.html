@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    
+    <link href="Content/bootstrap-reboot.min.css" rel="stylesheet" type="text/css" />
+    <link href="Content/bootstrap-grid.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body ng-app="App" style="padding-top: 10px">
+    <!--<div ng-view></div>-->
+    <div ng-controller="TaskController" ng-cloak="" class="container">
+        <h2>{{helloTo.title}}</h2>
+        <div class="alert alert-success" role="alert" ng-show="mostrarMesangemSucesso">
+            {{mensagemSucesso}}
+        </div>
+        <div class="alert alert-danger" role="alert" ng-show="mostrarMesangemErro">
+            {{mensagemErro}}
+        </div>
+        <h1 class="modal-title">Tasklist</h1>
+        <form>
+            <div class="row">
+                <div class="col-md-2 col-lg-2">
+                    <div class="form-group">
+                        <label for="titulo">Titulo</label>
+                        <input type="text" class="form-control" id="titulo" ng-model="request.title" required />
+                    </div>
+                </div>
+
+                <div class="col-md-2  col-lg-2">
+                    <div class="form-group">
+                        <label for="descricao">Descricao</label>
+                        <input type="text" class="form-control" id="descricao" ng-model="request.description" required />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-2  col-lg-2">
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select class="form-control" ng-model="request.status">
+                            <option value="0">Novo</option>
+                            <option value="1">Editado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2  col-lg-2">
+                    <div class="form-group">
+                        <label for="dataConclusao">Conclusao</label>
+                        <input id="datepicker" class="form-control" name="date" placeholder="MM/DD/YYY" type="date" ng-model="request.doneDate" required />
+                    </div>
+                </div>
+
+            </div>
+
+            <button type="submit" ng-click="salvar()">Salvar</button>
+            <button type="button" ng-click="deletar()" ng-disabled="request.Id == 0" >Excluir</button>
+        </form>
+        </br>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Titulo</th>
+                    <th>Descricao</th>
+                    <th>Status</th>
+                    <th>Data da Criação</th>
+                    <th>Data da Conclusão</th>
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="task in taskList">
+                    <td>{{ task.Id }}</td>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.status }}</td>
+                    <td>{{ task.creationDate | date:"dd/MM/yyyy" }}</td>
+                    <td>{{ task.doneDate | date:"dd/MM/yyyy" }}</td>
+                    <td>
+                        <a class="fas fa-edit" href="#" ng-click="editar(task)" title="Editar"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+<script src="Scripts/angular.min.js" type="text/javascript"></script>
+<script src="Scripts/angular-resource.min.js" type="text/javascript"></script>
+<script src="Scripts/bootstrap.min.js" type="text/javascript"></script>
+<script src="Scripts/jquery-3.0.0.min.js" type="text/javascript"></script>
+<script src="Scripts/bootstrap.bundle.min.js" type="text/javascript"></script>
+<script src="Scripts/script.taskController/main.js" type="text/javascript"></script>
+<script src="Scripts/script.taskController/TaskController.js" type="text/javascript"></script>
+
+</html>
